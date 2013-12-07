@@ -7,6 +7,9 @@ Programming in C 2013 - Homework 8 (Phone number prefix)
 Předpokládáme, že chceme naceňovat telefonní hovory. Cena závisí na cíli volání. Známe databázi předčíslí (prefixů) a jim odpovídající pojmenování. Například prefix 420 znamená ČR, 421 SR, 1 USA, ... Prefixy mají různou délku, navíc mohou být dále vnitřně strukturované. Například prefix 420 znamená ČR, prefix 420800 budou zelené linky v ČR, 42073 bude T-Mobile ČR, ...
 
 Pro reprezentaci takovéto hierarchické struktury se hodí strom organizovaný jako trie. Strom bude 10-ární, pro každou cifru zápisu tel. čísla bude mít jednu úroveň, pořadí synovských uzlů bude odpovídat cifrám 0 až 9. Strukturu zachycuje obrázek.
+
+![Trie structure model](img/trie.png)
+
 Vaším Úkolem je realizovat sadu funkcí, které budou umět trie rozšiřovat, promazávat a vyhledávat v něm. Požadované funkce mají následující rozhraní:
 
 ```
@@ -54,6 +57,8 @@ int main ( int argc, char * argv [] )
 + delDest funkce odstraní ze stromu zadaný prefix a jemu asociovaný cíl volání. Pokud odkazovaný prefix ve stromu neexistuje nebo pokud zadaný prefix obsahuje nečíselné hodnoty, funkce vrací neúspěch (0) a strom ponechá beze změn. Pokud funkce úspěšně odstraní zadaný cíl volání, vrací hodnotu 1. Funkce z mazaného prefixu odstraní řetězec jména cíle (nahradí jej hodnotou NULL) a dále vymaže i všechny nepotřebné uzly, které ve stromu nemusí být (nemají žádnou funkci). V extrémním případě funkce může vymazat i celý strom - pokud odstraňuje poslední cíl volání ve stromu obsažený.
 + search funkce vyhledá ve stromu jméno cíle, které odpovídá zadanému číslu. Návratovou hodnotou je nalezený řetězec - název cíle, případně hodnota NULL. NULL je vrácen pro dotazované číslo, které obsahovalo nečíselné znaky nebo pro číslo, pro které není definovaný cíl. Pozor: strom je prefixový, nemusí obsahovat celé zadávané číslo. Pokud by strom obsahoval jediný cíl - prefix 1 (USA), tedy strom bude tvořen dvojicí uzlů, bude volání search vracet pro číslo 123456 hodnotu "USA", ale např. pro číslo 23456 hodnotu NULL.
 + delTree funkce uvolní veškeré paměťové bloky, které byly použité pro zadaný strom. 
+ 
+![Functions](img/functions.png)
 
 Odevzdávejte zdrojový soubor s implementací požadovaných funkcí. Odevzdávaný soubor musí obsahovat implementaci všech požadovaných funkcí s rozhraním (parametry), které odpovídají předpisu nahoře. Dále ve zdrojovém souboru musí být další Vaše pomocné funkce, které z požadovaných funkcí voláte. V odevzdávaném zdrojovém souboru by naopak neměly být zbytečnosti (pozůstatky vývoje a ladění), vkládání hlavičkových souborů ani funkce main - toto je již obsaženo v testovacím prostředí. Pro usnadnění vývoje a odevzdávání (abyste nemuseli před každým odevzdáním ručně odstraňovat funkci main a vkládání hlaviček) použijte šablonu výše. Všimněte si, že funkce main a vkládání hlavičkových souborů je v bloku podmíněného překladu, tedy jsou testovacím prostředím přeskočeny.
 
